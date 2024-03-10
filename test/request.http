@@ -1,3 +1,6 @@
 @server=http://localhost:8080
 ### Test connection
 GET {{server}}/ping
+
+### Test PG connection
+GET {{server}}/time
