@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
-	"time"
 
-	postgres "brainhabit/db"
+	pg "brainhabit/db"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -16,7 +14,7 @@ func main() {
 	dsn := "user=postgres password=postgres dbname=postgres host=localhost port=5432 sslmode=disable"
 
 	var database *gorm.DB
-	database, _ = postgres.Connect(dsn)
+	database, _ = pg.Connect(dsn)
 
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
@@ -26,24 +24,12 @@ func main() {
 		})
 	})
 
-	r.GET("/time", func(c *gin.Context) {
+	r.GET("/pg", func(c *gin.Context) {
 
-		var now time.Time
-		result := database.Raw("SELECT NOW() AS now").Scan(&now)
+		currentDB := database.Migrator().CurrentDatabase()
 
-		if result.Error != nil {
-			fmt.Println("Error fetching current time:", result.Error)
-			return
-		}
-
-		c.JSON(http.StatusOK, gin.H{
-			"pg_time": now,
-		})
+		c.JSON(http.StatusOK, gin.H{"message": "Database connection OK", "database": currentDB})
 	})
 
 	r.Run()
-}
-
-func pgTest() {
-
 }
