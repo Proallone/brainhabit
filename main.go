@@ -2,10 +2,8 @@ package main
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
 func main() {
@@ -15,5 +13,5 @@ func main() {
 			"message": "pong",
 		})
 	})
-	r.Run() 
+	r.Run()
 }
