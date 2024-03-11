@@ -49,6 +49,9 @@ func AutoMigrate(db *gorm.DB) error {
 	if err != nil {
 		return err
 	}
+
+	
+
 	fmt.Println("Postgres schema automigration successful")
 	return nil
 }

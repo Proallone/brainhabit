@@ -9,4 +9,5 @@ type User struct {
 	DisplayName  string `json:"display_name"`
 	Email        string `json:"email" gorm:"uniqueIndex;not null"`
 	PasswordHash string `json:"-" gorm:"not null"`
+	Habits       []Habit
 }

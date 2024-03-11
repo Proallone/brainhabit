@@ -6,6 +6,6 @@ import (
 )
 
 type BaseModel struct {
-	gorm.Model
 	ID uuid.UUID `gorm:"type:uuid;primary_key;default:gen_random_uuid()"` //* override default ID with UUID
+	gorm.Model
 }
