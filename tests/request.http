@@ -1,0 +1,6 @@
+@server=http://localhost:8080/api
+### Test connection
+GET {{server}}/health
+
+### Test PG connection
+GET {{server}}/pghealth
