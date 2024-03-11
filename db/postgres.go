@@ -9,25 +9,39 @@ import (
 	"gorm.io/gorm"
 )
 
-func Connect(dsn string) (*gorm.DB, error) {
+var DB *gorm.DB
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+func Setup(dsn string) error {
+
+	db, err := Connect(dsn)
 
 	if err != nil {
-		return nil, fmt.Errorf("Failed to connect to postgres: %w", err)
+		return err
 	}
-
-	fmt.Println("Server connected to postgres")
 
 	err = AutoMigrate(db)
 
 	if err != nil {
-		return nil, fmt.Errorf("Failed automigrate postgres database: %w", err)
+		return fmt.Errorf("Error, failed automigrate postgres schema: %w", err)
 	}
 
-	fmt.Println("Postgres automigration successful")
+	DB = db
 
-	return db, nil
+	return nil
+}
+
+func Connect(dsn string) (*gorm.DB, error) {
+
+	database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
+	if err != nil {
+		return nil, fmt.Errorf("Error, failed to connect to postgres: %w", err)
+	}
+
+	fmt.Println("Server connected to postgres")
+
+	return database, nil
+
 }
 
 func AutoMigrate(db *gorm.DB) error {
@@ -35,5 +49,6 @@ func AutoMigrate(db *gorm.DB) error {
 	if err != nil {
 		return err
 	}
+	fmt.Println("Postgres schema automigration successful")
 	return nil
 }
