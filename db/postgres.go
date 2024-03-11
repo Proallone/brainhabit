@@ -45,7 +45,7 @@ func Connect(dsn string) (*gorm.DB, error) {
 }
 
 func AutoMigrate(db *gorm.DB) error {
-	err := db.AutoMigrate(&models.User{})
+	err := db.AutoMigrate(&models.User{}, &models.Habit{})
 	if err != nil {
 		return err
 	}
