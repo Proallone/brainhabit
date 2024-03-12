@@ -22,6 +22,7 @@ func Routes(router *gin.Engine) {
 		users.POST("/", c.RegisterUser)
 
 		users.GET("/:id", c.GetUser)
+		users.PATCH("/:id", c.PatchUser)
 		users.DELETE("/:id", c.DeleteUser)
 
 	}

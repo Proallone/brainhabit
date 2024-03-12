@@ -41,6 +41,33 @@ func RegisterUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, result)
 }
 
+func PatchUser(c *gin.Context) {
+	ID, err := uuid.Parse(c.Param("id"))
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
+	var user models.User
+
+	if err := pg.DB.Where("id = ?", ID).First(&user).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return
+	}
+
+	var input models.User
+
+	if err := c.BindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	pg.DB.Model(&user).Updates(input)
+
+	c.JSON(http.StatusOK, gin.H{"data": user})
+}
+
 func DeleteUser(c *gin.Context) {
 	ID, err := uuid.Parse(c.Param("id"))
 
@@ -71,7 +98,7 @@ func GetUser(c *gin.Context) {
 
 	var user models.User
 
-	if err := pg.DB.First(&user).Where("id = ? and deleted_at is null", ID).Error; err != nil {
+	if err := pg.DB.First(&user, ID).Where("deleted_at is null", ID).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}

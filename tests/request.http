@@ -1,12 +1,14 @@
 @server=http://localhost:8080/api
+
 ### Test connection
 GET {{server}}/health
 
 ### Test PG connection
-GET {{server}}/pghealth
+GET {{server}}/health/pg
 
 ### Get all active users
 GET {{server}}/users
+
 ### Create new user
 POST {{server}}/users
 content-type: application/json
@@ -16,8 +18,16 @@ content-type: application/json
     "password": "dupa"
 }
 
+### Patch user
+PATCH  {{server}}/users/fc2aee13-d30c-4af1-b5c7-76add11ff93f
+content-type: application/json
+
+{
+    "name": "Maciej"
+}
+
 ### Get active user by ID
-GET {{server}}/users/5d1650d4-09db-4396-b786-fa876ee7f828
+GET {{server}}/users/7e3a6763-63a7-42a5-a664-c39c55c6354f
 
 ### Delete active user by ID
-DELETE  {{server}}/users/5d1650d4-09db-4396-b786-fa876ee7f828
+DELETE  {{server}}/users/7e3a6763-63a7-42a5-a664-c39c55c6354f
