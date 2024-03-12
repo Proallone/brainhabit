@@ -1,0 +1,9 @@
+ID,CreatedAt,UpdatedAt,DeletedAt,Name,Surname,DisplayName,Email,PasswordHash
+123e4567-e89b-12d3-a456-426655440000,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,John,Doe,John Doe,johndoe@example.com,$2a$10$examplehash
+789a012b-c5ed-4fgh-ijk1-lmno67890000,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,Jane,Smith,Jane Smith,janesmith@example.com,$2a$10$anotherexamplehash
+345f6789-a01b-2cde-3fgh-4ijk56780000,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,Michael,Johnson,Michael Johnson,michaeljohnson@example.com,$2a$10$athirdhash
+90abcdef-0123-4567-89ab-cdef01230000,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,Alice,Williams,Alice Williams,alicewilliams@example.com,$2a$10$afourthhash
+0fedcba0-9876-5432-10ab-cdef01234567,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,David,Miller,David Miller,davidmiller@example.com,$2a$10$afifthhash
+6789abc0-1234-5678-90ab-cdef01234568,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,Charles,Brown,Charles Brown,charlesbrown@example.com,$2a$10$asixthhash
+cdef0123-4567-89ab-cdef-012345678900,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,Emily,Garcia,Emily Garcia,emilygarcia@example.com,$2a$10$aseventhhash
+01234567-89ab-cdef-0123-456789abcdef,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,James,Clark,James Clark,jamesclark@example.com,$2a$10$aeighthhash
