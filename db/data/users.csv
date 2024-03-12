@@ -1,0 +1,5 @@
+id,created_at,updated_at,deleted_at,name,surname,display_name,email,password_hash
+123e4567-e89b-12d3-a456-426655440000,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,John,Doe,John Doe,johndoe@example.com,$2a$10$examplehash
+76419a34-09aa-4901-bae2-b9284d8585d1,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,Jane,Smith,Jane Smith,janesmith@example.com,$2a$10$anotherexamplehash
+5d0c7168-5741-4fd4-8cd6-0f5d2fa14ab1,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,Michael,Johnson,Michael Johnson,michaeljohnson@example.com,$2a$10$athirdhash
+5d1650d4-09db-4396-b786-fa876ee7f828,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,Alice,Williams,Alice Williams,alicewilliams@example.com,$2a$10$afourthhash

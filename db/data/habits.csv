@@ -1,0 +1,10 @@
+id,created_at,updated_at,deleted_at,user_id,name,description,target,streak
+37060d2c-fed2-46e5-8919-6ffe977915f0,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,123e4567-e89b-12d3-a456-426655440000,Morning Jog,Start my day with a 30-minute jog,30,1
+234bd451-3fa3-49f4-b2fa-cb23ff8affd6,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,123e4567-e89b-12d3-a456-426655440000,Meditation,Practice mindfulness for 10 minutes,10,1
+05dcb7fe-fdd5-4745-ba3b-f7069c2fa1bd,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,76419a34-09aa-4901-bae2-b9284d8585d1,Healthy Lunch,Pack a nutritious lunch for work,1,4
+e65282c8-354f-4a89-907a-a4ce177335de,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,76419a34-09aa-4901-bae2-b9284d8585d1,Read 30 Minutes,Read for at least 30 minutes before bed,7,0
+cfe804b8-b7aa-49cf-80cc-8776bdec326d,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,5d0c7168-5741-4fd4-8cd6-0f5d2fa14ab1,Learn a New Skill,Spend 1 hour learning a new skill,3,0
+c5c4a29b-219f-42c4-9ae2-4fa7a14ee185,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,123e4567-e89b-12d3-a456-426655440000,Practice Gratitude,Write down 3 things I'm grateful for,1,0
+b49b1875-479d-4dee-a0ea-9e21b2032bfc,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,5d0c7168-5741-4fd4-8cd6-0f5d2fa14ab1,Floss Daily,Floss my teeth before bed,1,3
+2f8f19c7-02e3-4a7e-8059-b5b5ce80826b,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,5d1650d4-09db-4396-b786-fa876ee7f828,Drink Water,Drink 8 glasses of water a day,8,2
+9cd33f3b-1b6e-4518-9bf5-d4cc5bd5543b,2024-03-12T15:17:00Z,2024-03-12T15:17:00Z,,5d1650d4-09db-4396-b786-fa876ee7f828,Stretch Daily,Perform basic stretches for 10 minutes,1,2

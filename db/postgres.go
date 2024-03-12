@@ -26,7 +26,6 @@ func Setup(dsn string) error {
 	}
 
 	DB = db
-
 	return nil
 }
 
@@ -39,18 +38,15 @@ func Connect(dsn string) (*gorm.DB, error) {
 	}
 
 	fmt.Println("Server connected to postgres")
-
 	return database, nil
 
 }
 
 func AutoMigrate(db *gorm.DB) error {
-	err := db.AutoMigrate(&models.User{}, &models.Habit{})
+	err := db.AutoMigrate(&models.User{}, &models.Habit{}, &models.HabitRecord{})
 	if err != nil {
 		return err
 	}
-
-	
 
 	fmt.Println("Postgres schema automigration successful")
 	return nil
