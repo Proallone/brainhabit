@@ -4,3 +4,20 @@ GET {{server}}/health
 
 ### Test PG connection
 GET {{server}}/pghealth
+
+### Get all active users
+GET {{server}}/users
+### Create new user
+POST {{server}}/users
+content-type: application/json
+
+{
+    "email": "test@email.com",
+    "password": "dupa"
+}
+
+### Get active user by ID
+GET {{server}}/users/5d1650d4-09db-4396-b786-fa876ee7f828
+
+### Delete active user by ID
+DELETE  {{server}}/users/5d1650d4-09db-4396-b786-fa876ee7f828

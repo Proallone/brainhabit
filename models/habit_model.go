@@ -13,4 +13,5 @@ type Habit struct {
 	Description string    `gorm:"size:256"`
 	Target      int       `gorm:"not null"`
 	Streak      int       `gorm:"default:0"`
+	Records     []HabitRecord
 }

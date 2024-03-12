@@ -10,7 +10,20 @@ func Routes(router *gin.Engine) {
 
 	r := router.Group("/api")
 
-	r.GET("/health", c.CheckServer)
-	r.GET("/pghealth", c.CheckPostgres)
+	health := r.Group("/health")
+	{
+		health.GET("/", c.CheckServer)
+		health.GET("/pg", c.CheckPostgres)
+	}
+
+	users := r.Group("/users")
+	{
+		users.GET("/", c.GetUsers)
+		users.POST("/", c.RegisterUser)
+
+		users.GET("/:id", c.GetUser)
+		users.DELETE("/:id", c.DeleteUser)
+
+	}
 
 }
