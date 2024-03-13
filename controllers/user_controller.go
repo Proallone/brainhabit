@@ -3,6 +3,7 @@ package controllers
 import (
 	pg "brainhabit/db"
 	"brainhabit/models"
+	"brainhabit/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -29,7 +30,13 @@ func RegisterUser(c *gin.Context) {
 		return
 	}
 
-	user := models.User{Email: newUser.Email, PasswordHash: newUser.Password}
+	passHash, err := utils.HashPassword(newUser.Password)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Error during password hashing"})
+		return
+	}
+	user := models.User{Email: newUser.Email, PasswordHash: passHash}
 
 	result := pg.DB.Create(&user)
 
