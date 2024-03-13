@@ -36,4 +36,14 @@ func Routes(router *gin.Engine) {
 		habit.DELETE("/:id", c.DeleteHabit)
 	}
 
+	habit_record := r.Group("/record")
+	{
+		habit_record.GET("/", c.GetHabitRecords)
+		habit_record.POST("/", c.CreateHabitRecords)
+
+		habit_record.GET("/:id", c.GetHabitRecord)
+		habit_record.PATCH("/:id", c.PatchHabitRecord)
+		habit_record.DELETE("/:id", c.DeleteHabitRecord)
+	}
+
 }
