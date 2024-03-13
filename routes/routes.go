@@ -26,7 +26,7 @@ func Routes(router *gin.Engine) {
 		user.DELETE("/:id", c.DeleteUser)
 	}
 
-	habit := r.Group("/habit")
+	habit := r.Group("/habits")
 	{
 		habit.GET("/", c.GetHabits)
 		habit.POST("/", c.CreateHabit)
@@ -36,7 +36,7 @@ func Routes(router *gin.Engine) {
 		habit.DELETE("/:id", c.DeleteHabit)
 	}
 
-	habit_record := r.Group("/record")
+	habit_record := r.Group("/records")
 	{
 		habit_record.GET("/", c.GetHabitRecords)
 		habit_record.POST("/", c.CreateHabitRecords)

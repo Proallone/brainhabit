@@ -10,7 +10,7 @@ import (
 
 func GetHabitRecords(c *gin.Context) {
 	var habits_records []models.HabitRecord
-	pg.DB.Find(&habits_records).Where("deleted_at is null")
+	pg.DB.Find(&habits_records)
 
 	c.JSON(http.StatusOK, habits_records)
 }

@@ -11,7 +11,7 @@ import (
 
 func GetUsers(c *gin.Context) {
 	var users []models.User
-	pg.DB.Find(&users).Where("deleted_at is null")
+	pg.DB.Find(&users)
 
 	c.JSON(http.StatusOK, users)
 }
@@ -78,7 +78,7 @@ func DeleteUser(c *gin.Context) {
 
 	var user models.User
 
-	err = pg.DB.Delete(&user, ID).Where("deleted_at is null").Error
+	err = pg.DB.Delete(&user, ID).Error
 
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Cannot delete user"})
@@ -98,7 +98,7 @@ func GetUser(c *gin.Context) {
 
 	var user models.User
 
-	if err := pg.DB.First(&user, ID).Where("deleted_at is null", ID).Error; err != nil {
+	if err := pg.DB.First(&user, ID).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}

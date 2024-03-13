@@ -11,7 +11,7 @@ import (
 
 func GetHabits(c *gin.Context) {
 	var habits []models.Habit
-	pg.DB.Find(&habits).Where("deleted_at is null")
+	pg.DB.Find(&habits)
 
 	c.JSON(http.StatusOK, habits)
 }
@@ -34,7 +34,7 @@ func DeleteHabit(c *gin.Context) {
 
 	var habit models.Habit
 
-	err = pg.DB.Delete(&habit, ID).Where("deleted_at is null").Error
+	err = pg.DB.Delete(&habit, ID).Error
 
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Cannot delete habit"})
