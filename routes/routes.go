@@ -16,15 +16,24 @@ func Routes(router *gin.Engine) {
 		health.GET("/pg", c.CheckPostgres)
 	}
 
-	users := r.Group("/users")
+	user := r.Group("/users")
 	{
-		users.GET("/", c.GetUsers)
-		users.POST("/", c.RegisterUser)
+		user.GET("/", c.GetUsers)
+		user.POST("/", c.RegisterUser)
 
-		users.GET("/:id", c.GetUser)
-		users.PATCH("/:id", c.PatchUser)
-		users.DELETE("/:id", c.DeleteUser)
+		user.GET("/:id", c.GetUser)
+		user.PATCH("/:id", c.PatchUser)
+		user.DELETE("/:id", c.DeleteUser)
+	}
 
+	habit := r.Group("/habit")
+	{
+		habit.GET("/", c.GetHabits)
+		habit.POST("/", c.CreateHabit)
+
+		habit.GET("/:id", c.GetHabit)
+		habit.PATCH("/:id", c.PatchHabit)
+		habit.DELETE("/:id", c.DeleteHabit)
 	}
 
 }
