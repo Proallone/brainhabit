@@ -59,20 +59,18 @@ func PatchUser(c *gin.Context) {
 	var user models.User
 
 	if err := pg.DB.Where("id = ?", ID).First(&user).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		c.JSON(http.StatusNotFound, gin.H{"error": "User not found!"})
 		return
 	}
 
-	var input models.User
-
-	if err := c.BindJSON(&input); err != nil {
+	if err := c.BindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	pg.DB.Model(&user).Updates(input)
+	pg.DB.Model(&user).Updates(user)
 
-	c.JSON(http.StatusOK, gin.H{"data": user})
+	c.JSON(http.StatusOK, user)
 }
 
 func DeleteUser(c *gin.Context) {
@@ -92,7 +90,7 @@ func DeleteUser(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusNoContent, gin.H{"res": "User deleted"})
+	c.JSON(http.StatusNoContent, gin.H{"response": "User deleted"})
 }
 
 func GetUser(c *gin.Context) {
@@ -105,7 +103,7 @@ func GetUser(c *gin.Context) {
 
 	var user models.User
 
-	if err := pg.DB.First(&user, ID).Error; err != nil {
+	if err := pg.DB.Model(&models.User{}).Preload("Habits").Preload("Habits.Records").First(&user, ID).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
