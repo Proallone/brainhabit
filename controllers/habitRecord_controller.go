@@ -66,7 +66,7 @@ func DeleteHabitRecord(c *gin.Context) {
 
 	var record models.HabitRecord
 
-	err = pg.DB.Delete(&record, ID).Error
+	err = pg.DB.Unscoped().Delete(&record, ID).Error
 
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Cannot delete record"})

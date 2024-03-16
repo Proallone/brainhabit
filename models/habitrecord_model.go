@@ -16,3 +16,8 @@ func (hr *HabitRecord) AfterCreate(tx *gorm.DB) (err error) {
 	tx.Model(&Habit{}).Where("id = ?", hr.HabitID).Update("streak", gorm.Expr("streak + ?", 1))
 	return
 }
+
+func (hr *HabitRecord) AfterDelete(tx *gorm.DB) (err error) {
+	tx.Model(&Habit{}).Where("id = ?", hr.HabitID).Update("streak", gorm.Expr("GREATEST(streak - ?, 0)", 1))
+	return
+}
