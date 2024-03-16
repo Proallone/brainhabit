@@ -14,20 +14,74 @@ POST {{server}}/users
 content-type: application/json
 
 {
-    "email": "test@email.com",
+    "email": "test223@email.com",
     "password": "dupa"
 }
 
+### Login user
+POST {{server}}/users/login
+content-type: application/json
+
+{
+    "email": "test23@email.com",
+    "password": "dupa"
+}
+
+### Logout user
+GET  {{server}}/users/logout
+content-type: application/json
+
+
 ### Patch user
-PATCH  {{server}}/users/fc2aee13-d30c-4af1-b5c7-76add11ff93f
+PATCH  {{server}}/users/a646fe3e-8421-4bd6-bd96-c3f42d2ac32f
 content-type: application/json
 
 {
     "name": "Maciej"
 }
 
-### Get active user by ID
-GET {{server}}/users/7e3a6763-63a7-42a5-a664-c39c55c6354f
+### Get active user by ID with all habits and records
+GET {{server}}/users/5d0c7168-5741-4fd4-8cd6-0f5d2fa14ab1
 
 ### Delete active user by ID
-DELETE  {{server}}/users/7e3a6763-63a7-42a5-a664-c39c55c6354f
+DELETE  {{server}}/users/a123e4567-e89b-12d3-a456-426655440000
+
+### Get all active habits
+GET {{server}}/habits
+
+### Create new habit
+POST {{server}}/habits
+content-type: application/json
+
+{
+    "userID": "5d0c7168-5741-4fd4-8cd6-0f5d2fa14ab1",
+    "name": "Test habit John",
+    "description" : "A new test habit for John",
+    "target" : 2
+}
+
+### Patch habit
+PATCH  {{server}}/habits/05dcb7fe-fdd5-4745-ba3b-f7069c2fa1bd
+content-type: application/json
+
+{
+    "name": "Unhealthy lunch"
+}
+
+### Delete active habit by ID
+DELETE  {{server}}/habits/eba507df-1d7f-4e55-b5e0-20152e9f7442
+
+
+### Get all habit records
+GET {{server}}/records
+
+### Create new habit record
+POST {{server}}/records
+content-type: application/json
+
+{
+    "habitID": "57dbdb0a-9fee-45c2-a677-daacfd6431b1"
+}
+
+### Delete active habit record by ID
+DELETE  {{server}}/records/e3037fb1-2c88-4fad-8dea-4e10cfb2d0ae

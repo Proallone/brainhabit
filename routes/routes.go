@@ -21,6 +21,9 @@ func Routes(router *gin.Engine) {
 		user.GET("/", c.GetUsers)
 		user.POST("/", c.RegisterUser)
 
+		user.POST("/login", c.LoginUser)
+		user.GET("/logout", c.LogoutUser)
+
 		user.GET("/:id", c.GetUser)
 		user.PATCH("/:id", c.PatchUser)
 		user.DELETE("/:id", c.DeleteUser)

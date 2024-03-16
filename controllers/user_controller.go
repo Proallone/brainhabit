@@ -36,8 +36,8 @@ func RegisterUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Error during password hashing"})
 		return
 	}
-	user := models.User{Email: newUser.Email, PasswordHash: passHash}
 
+	user := models.User{Email: newUser.Email, PasswordHash: passHash}
 	result := pg.DB.Create(&user)
 
 	if err := result.Error; err != nil {
@@ -46,6 +46,39 @@ func RegisterUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, result)
+}
+
+func LoginUser(c *gin.Context) {
+	type Credentials struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+
+	var creds Credentials
+
+	if err := c.BindJSON(&creds); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request body"})
+		return
+	}
+
+	var user models.User
+
+	if err := pg.DB.Select("password_hash").Where("email = ?", creds.Email).First(&user).Error; err != nil {
+		c.JSON(http.StatusUnauthorized, "User not found")
+		return
+	}
+
+	if !utils.VerifyPassword(creds.Password, user.PasswordHash) {
+		c.JSON(http.StatusUnauthorized, "Incorrect password")
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"token": "token placeholder"})
+}
+
+func LogoutUser(c *gin.Context) {
+	//TODO remove placeholder after there is proper JWT implemented
+	c.JSON(http.StatusOK, "Successfully logged out")
 }
 
 func PatchUser(c *gin.Context) {
