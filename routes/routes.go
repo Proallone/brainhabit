@@ -2,6 +2,7 @@ package routes
 
 import (
 	c "brainhabit/controllers"
+	"brainhabit/middlewares"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,20 +17,23 @@ func Routes(router *gin.Engine) {
 		health.GET("/pg", c.CheckPostgres)
 	}
 
-	user := r.Group("/users")
+	auth := r.Group("/auth")
+	{
+		auth.POST("/login", c.LoginUser)
+		auth.GET("/logout", c.LogoutUser)
+	}
+
+	user := r.Group("/users", middlewares.AuthMiddleware())
 	{
 		user.GET("/", c.GetUsers)
 		user.POST("/", c.RegisterUser)
-
-		user.POST("/login", c.LoginUser)
-		user.GET("/logout", c.LogoutUser)
 
 		user.GET("/:id", c.GetUser)
 		user.PATCH("/:id", c.PatchUser)
 		user.DELETE("/:id", c.DeleteUser)
 	}
 
-	habit := r.Group("/habits")
+	habit := r.Group("/habits", middlewares.AuthMiddleware())
 	{
 		habit.GET("/", c.GetHabits)
 		habit.POST("/", c.CreateHabit)
@@ -39,7 +43,7 @@ func Routes(router *gin.Engine) {
 		habit.DELETE("/:id", c.DeleteHabit)
 	}
 
-	habit_record := r.Group("/records")
+	habit_record := r.Group("/records", middlewares.AuthMiddleware())
 	{
 		habit_record.GET("/", c.GetHabitRecords)
 		habit_record.POST("/", c.CreateHabitRecords)

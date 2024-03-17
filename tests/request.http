@@ -1,5 +1,5 @@
 @server=http://localhost:8080/api
-
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTA2NjI1NzAsImlhdCI6MTcxMDY2MDc3MCwibmJmIjoxNzEwNjYwNzcwLCJzdWIiOiJlMzhhMjUzMS1hZWMwLTQ4N2EtYWIyNi1hMjI5MThkZTIyNGUifQ.KZ6eWOlY79xLhGUqA_D87d_U5AoTCsZaSf39x97QDF8
 ### Test connection
 GET {{server}}/health
 
@@ -8,10 +8,12 @@ GET {{server}}/health/pg
 
 ### Get all active users
 GET {{server}}/users
+Authorization: Bearer {{token}}
 
 ### Create new user
 POST {{server}}/users
 content-type: application/json
+Authorization: Bearer {{token}}
 
 {
     "email": "test223@email.com",
@@ -19,8 +21,9 @@ content-type: application/json
 }
 
 ### Login user
-POST {{server}}/users/login
+POST {{server}}/auth/login
 content-type: application/json
+Authorization: Bearer {{token}}
 
 {
     "email": "test23@email.com",
@@ -28,13 +31,15 @@ content-type: application/json
 }
 
 ### Logout user
-GET  {{server}}/users/logout
+GET  {{server}}/auth/logout
 content-type: application/json
+Authorization: Bearer {{token}}
 
 
 ### Patch user
 PATCH  {{server}}/users/a646fe3e-8421-4bd6-bd96-c3f42d2ac32f
 content-type: application/json
+Authorization: Bearer {{token}}
 
 {
     "name": "Maciej"
@@ -42,16 +47,20 @@ content-type: application/json
 
 ### Get active user by ID with all habits and records
 GET {{server}}/users/5d0c7168-5741-4fd4-8cd6-0f5d2fa14ab1
+Authorization: Bearer {{token}}
 
 ### Delete active user by ID
 DELETE  {{server}}/users/a123e4567-e89b-12d3-a456-426655440000
+Authorization: Bearer {{token}}
 
 ### Get all active habits
 GET {{server}}/habits
+Authorization: Bearer {{token}}
 
 ### Create new habit
 POST {{server}}/habits
 content-type: application/json
+Authorization: Bearer {{token}}
 
 {
     "userID": "5d0c7168-5741-4fd4-8cd6-0f5d2fa14ab1",
@@ -63,6 +72,7 @@ content-type: application/json
 ### Patch habit
 PATCH  {{server}}/habits/05dcb7fe-fdd5-4745-ba3b-f7069c2fa1bd
 content-type: application/json
+Authorization: Bearer {{token}}
 
 {
     "name": "Unhealthy lunch"
@@ -70,14 +80,17 @@ content-type: application/json
 
 ### Delete active habit by ID
 DELETE  {{server}}/habits/eba507df-1d7f-4e55-b5e0-20152e9f7442
+Authorization: Bearer {{token}}
 
 
 ### Get all habit records
 GET {{server}}/records
+Authorization: Bearer {{token}}
 
 ### Create new habit record
 POST {{server}}/records
 content-type: application/json
+Authorization: Bearer {{token}}
 
 {
     "habitID": "57dbdb0a-9fee-45c2-a677-daacfd6431b1"
@@ -85,3 +98,4 @@ content-type: application/json
 
 ### Delete active habit record by ID
 DELETE  {{server}}/records/e3037fb1-2c88-4fad-8dea-4e10cfb2d0ae
+Authorization: Bearer {{token}}
