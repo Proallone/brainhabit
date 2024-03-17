@@ -25,7 +25,7 @@ func LoginUser(c *gin.Context) {
 
 	var user models.User
 
-	if err := pg.DB.Select("id,password_hash").Where("email = ?", creds.Email).First(&user).Error; err != nil {
+	if err := pg.DB.Select("id,password_hash, role").Where("email = ?", creds.Email).First(&user).Error; err != nil {
 		c.JSON(http.StatusUnauthorized, "User not found")
 		return
 	}
@@ -37,7 +37,7 @@ func LoginUser(c *gin.Context) {
 
 	jwtTTL := time.Minute * 30
 
-	token, err := utils.GenerateToken(jwtTTL, user.ID)
+	token, err := utils.GenerateToken(jwtTTL, user)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"status": "fail", "message": err.Error()})
 		return

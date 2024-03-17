@@ -9,13 +9,6 @@ import (
 	"github.com/google/uuid"
 )
 
-func GetHabits(c *gin.Context) {
-	var habits []models.Habit
-	pg.DB.Find(&habits)
-
-	c.JSON(http.StatusOK, habits)
-}
-
 func CreateHabit(c *gin.Context) {
 	var habit models.Habit
 	if err := c.ShouldBindJSON(&habit); err != nil {

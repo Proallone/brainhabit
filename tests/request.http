@@ -1,33 +1,39 @@
 @server=http://localhost:8080/api
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTA2NjI1NzAsImlhdCI6MTcxMDY2MDc3MCwibmJmIjoxNzEwNjYwNzcwLCJzdWIiOiJlMzhhMjUzMS1hZWMwLTQ4N2EtYWIyNi1hMjI5MThkZTIyNGUifQ.KZ6eWOlY79xLhGUqA_D87d_U5AoTCsZaSf39x97QDF8
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MTA3MDA2MzQsImlhdCI6MTcxMDY5ODgzNCwibmJmIjoxNzEwNjk4ODM0LCJyb2xlIjoiYWRtaW4iLCJzdWIiOiIyOTA2ZTc0OC0xZGMxLTQxMjktOGEzMC1iZTlmNzc5Nzk0MmQifQ.ew4AWD4bhsv3tA9Yc91sak09SXBLVKUkGJblup-62cg
 ### Test connection
 GET {{server}}/health
 
 ### Test PG connection
 GET {{server}}/health/pg
 
+###! ADMIN
 ### Get all active users
-GET {{server}}/users
+GET {{server}}/admin/users
 Authorization: Bearer {{token}}
+### Get all active habits
+GET {{server}}/admin/habits
+Authorization: Bearer {{token}}
+### Get all habit records
+GET {{server}}/admin/records
+Authorization: Bearer {{token}}
+
 
 ### Create new user
-POST {{server}}/users
+POST {{server}}/auth/register
 content-type: application/json
-Authorization: Bearer {{token}}
 
 {
-    "email": "test223@email.com",
-    "password": "dupa"
+    "email": "admin@email.com",
+    "password": "admin"
 }
 
 ### Login user
 POST {{server}}/auth/login
 content-type: application/json
-Authorization: Bearer {{token}}
 
 {
-    "email": "test23@email.com",
-    "password": "dupa"
+    "email": "admin@email.com",
+    "password": "admin"
 }
 
 ### Logout user
@@ -53,10 +59,6 @@ Authorization: Bearer {{token}}
 DELETE  {{server}}/users/a123e4567-e89b-12d3-a456-426655440000
 Authorization: Bearer {{token}}
 
-### Get all active habits
-GET {{server}}/habits
-Authorization: Bearer {{token}}
-
 ### Create new habit
 POST {{server}}/habits
 content-type: application/json
@@ -80,11 +82,6 @@ Authorization: Bearer {{token}}
 
 ### Delete active habit by ID
 DELETE  {{server}}/habits/eba507df-1d7f-4e55-b5e0-20152e9f7442
-Authorization: Bearer {{token}}
-
-
-### Get all habit records
-GET {{server}}/records
 Authorization: Bearer {{token}}
 
 ### Create new habit record

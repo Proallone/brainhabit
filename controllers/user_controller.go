@@ -92,21 +92,3 @@ func DeleteUser(c *gin.Context) {
 
 	c.JSON(http.StatusNoContent, gin.H{"response": "User deleted"})
 }
-
-func GetUser(c *gin.Context) {
-	ID, err := uuid.Parse(c.Param("id"))
-
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
-		return
-	}
-
-	var user models.User
-
-	if err := pg.DB.Model(&models.User{}).Preload("Habits").Preload("Habits.Records").First(&user, ID).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
-		return
-	}
-
-	c.JSON(http.StatusOK, user)
-}

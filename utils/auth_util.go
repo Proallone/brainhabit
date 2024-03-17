@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"brainhabit/models"
 	"fmt"
 	"os"
 	"time"
@@ -8,13 +9,14 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-func GenerateToken(ttl time.Duration, payload interface{}) (string, error) {
+func GenerateToken(ttl time.Duration, user models.User) (string, error) {
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	now := time.Now().UTC()
 	claims := token.Claims.(jwt.MapClaims)
 
-	claims["sub"] = payload
+	claims["sub"] = user.ID
+	claims["role"] = user.Role
 	claims["exp"] = now.Add(ttl).Unix()
 	claims["iat"] = now.Unix()
 	claims["nbf"] = now.Unix()
@@ -46,5 +48,9 @@ func ValidateToken(token string, signedJWTKey string) (interface{}, error) {
 		return nil, fmt.Errorf("invalid token claim")
 	}
 
-	return claims["sub"], nil
+	return map[string]interface{}{
+			"sub":  claims["sub"],
+			"role": claims["role"],
+		},
+		nil
 }

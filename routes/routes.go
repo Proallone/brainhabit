@@ -21,23 +21,26 @@ func Routes(router *gin.Engine) {
 	{
 		auth.POST("/login", c.LoginUser)
 		auth.GET("/logout", c.LogoutUser)
+		auth.POST("/register", c.RegisterUser)
 	}
 
 	user := r.Group("/users", middlewares.AuthMiddleware())
 	{
-		user.GET("/", c.GetUsers)
-		user.POST("/", c.RegisterUser)
-
 		user.GET("/:id", c.GetUser)
 		user.PATCH("/:id", c.PatchUser)
 		user.DELETE("/:id", c.DeleteUser)
 	}
 
+	admin := r.Group("/admin", middlewares.AuthMiddleware())
+	{
+		admin.GET("/users", c.GetUsers)
+		admin.GET("/habits", c.GetHabits)
+		admin.GET("/records", c.GetHabitRecords)
+	}
+
 	habit := r.Group("/habits", middlewares.AuthMiddleware())
 	{
-		habit.GET("/", c.GetHabits)
 		habit.POST("/", c.CreateHabit)
-
 		habit.GET("/:id", c.GetHabit)
 		habit.PATCH("/:id", c.PatchHabit)
 		habit.DELETE("/:id", c.DeleteHabit)
@@ -45,9 +48,7 @@ func Routes(router *gin.Engine) {
 
 	habit_record := r.Group("/records", middlewares.AuthMiddleware())
 	{
-		habit_record.GET("/", c.GetHabitRecords)
 		habit_record.POST("/", c.CreateHabitRecords)
-
 		habit_record.PATCH("/:id", c.PatchHabitRecord)
 		habit_record.DELETE("/:id", c.DeleteHabitRecord)
 	}

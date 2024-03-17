@@ -30,7 +30,7 @@ func AuthMiddleware() gin.HandlerFunc {
 }
 
 func isAuthenticated(token string) bool {
-	userID, err := utils.ValidateToken(token, os.Getenv("JWT_KEY"))
-	fmt.Print(userID)
+	claims, err := utils.ValidateToken(token, os.Getenv("JWT_KEY"))
+	fmt.Print(claims)
 	return err == nil
 }
