@@ -21,16 +21,28 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		if isAuthenticated(authSplit[1]) {
-			c.Next()
+		userClaims, err := isAuthenticated((authSplit[1]))
+
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized access!"})
 			return
 		}
-		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized access!"})
+
+		fmt.Println(userClaims)
+		requestedPath := c.FullPath()
+
+		if strings.Contains(requestedPath, "/admin/") && userClaims["role"] != "admin" {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Insufficient priviliges!"})
+			return
+		}
+		c.Next()
 	}
 }
 
-func isAuthenticated(token string) bool {
+func isAuthenticated(token string) (map[string]interface{}, error) {
 	claims, err := utils.ValidateToken(token, os.Getenv("JWT_KEY"))
-	fmt.Print(claims)
-	return err == nil
+	if err != nil {
+		return nil, err
+	}
+	return claims, nil
 }
