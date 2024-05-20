@@ -21,7 +21,9 @@ func main() {
 	fmt.Print(dns)
 	pg.Setup(dns)
 	port := getPort()
-	r.Run(port)
+	if err := r.Run(port); err != nil {
+		panic(err)
+	}
 }
 
 func getPort() string {

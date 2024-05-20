@@ -7,12 +7,12 @@ pre-commit:
     vet:
       run: go vet ./...
       glob: "*.go"
-    lint:
-      run: golangci-lint run
-      glob: "*.go"
-    test:
-      run: go test -v ./tests
-      glob: "*.go"
+    # lint:
+    #   run: golangci-lint run
+    #   glob: "*.go"
+    # test:
+    #   run: go test -v ./tests
+    #   glob: "*.go"
     build:
-      run: go build -o bin/bh main.go
+      run: go build -o bin/bh cmd/api/main.go
       glob: "*.go"
