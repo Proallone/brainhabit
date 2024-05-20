@@ -3,7 +3,7 @@ package pg
 import (
 	"fmt"
 
-	"brainhabit/models"
+	"brainhabit/data/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

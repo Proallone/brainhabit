@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	pg "brainhabit/db"
-	"brainhabit/models"
+	pg "brainhabit/data"
+	"brainhabit/data/models"
 	"brainhabit/utils"
 	"net/http"
 
@@ -10,14 +10,14 @@ import (
 	"github.com/google/uuid"
 )
 
-func GetUsers(c *gin.Context) {
+func (controller *Controller) GetUsers(c *gin.Context) {
 	var users []models.User
 	pg.DB.Find(&users)
 
 	c.JSON(http.StatusOK, users)
 }
 
-func RegisterUser(c *gin.Context) {
+func (controller *Controller) RegisterUser(c *gin.Context) {
 	type NewUser struct {
 		Email    string `json:"email"`
 		Password string `json:"password"`
@@ -48,7 +48,7 @@ func RegisterUser(c *gin.Context) {
 	c.JSON(http.StatusCreated, result)
 }
 
-func PatchUser(c *gin.Context) {
+func (controller *Controller) PatchUser(c *gin.Context) {
 	ID, err := uuid.Parse(c.Param("id"))
 
 	if err != nil {
@@ -73,7 +73,7 @@ func PatchUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-func DeleteUser(c *gin.Context) {
+func (controller *Controller) DeleteUser(c *gin.Context) {
 	ID, err := uuid.Parse(c.Param("id"))
 
 	if err != nil {

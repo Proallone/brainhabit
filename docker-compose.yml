@@ -1,0 +1,66 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}",
+        ]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 5s 
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    networks:
+      - fullstack
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: unless-stopped
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-password}
+    volumes:
+      - pgadmin_volume:/var/lib/pgadmin
+    networks:
+      - fullstack
+  bh:
+    container_name: bh
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      -  ${PORT}:${PORT}
+    restart: unless-stopped
+    environment:
+      PORT: ${PORT:-8080}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+    volumes:
+      - api_volume:/usr/src/app/
+    depends_on:
+      - postgres
+    networks:
+      - fullstack
+volumes:
+  postgres_volume:
+    driver: local
+  api_volume:
+  pgadmin_volume:
+
+networks:
+  fullstack:
+    driver: bridge

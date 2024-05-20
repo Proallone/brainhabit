@@ -1,0 +1,48 @@
+# Ignore the bin directory
+bin/
+
+# Ignore the vendor directory
+vendor/
+
+# Ignore the entire .git directory
+.git/
+
+# Ignore the Dockerfile if you don't want it in the image
+Dockerfile
+
+# Ignore the .dockerignore file itself
+.dockerignore
+
+# Ignore test files
+*_test.go
+
+# Ignore Go build artifacts
+*.out
+*.exe
+*.so
+*.dll
+*.dylib
+*.a
+*.o
+
+# Ignore editor and IDE files
+.vscode/
+.idea/
+*.swp
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore env files
+**/*.env
+.env.template
+
+# Ignore the husky directory
+.husky/
+
+# Ignore the githhub directory
+.github/

@@ -1,8 +1,8 @@
 package routes
 
 import (
-	c "brainhabit/controllers"
-	"brainhabit/middlewares"
+	"brainhabit/controllers"
+	"brainhabit/controllers/middlewares"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,6 +10,7 @@ import (
 func Routes(router *gin.Engine) {
 
 	r := router.Group("/api")
+	c := controllers.NewController()
 
 	health := r.Group("/health")
 	{

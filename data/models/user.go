@@ -1,6 +1,6 @@
 package models
 
-import "brainhabit/models/common"
+import "brainhabit/data/models/common"
 
 type UserRole string
 

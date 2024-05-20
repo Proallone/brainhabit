@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"brainhabit/models"
+	"brainhabit/data/models"
 	"fmt"
 	"os"
 	"time"

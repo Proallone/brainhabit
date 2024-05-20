@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	pg "brainhabit/db"
-	"brainhabit/models"
+	pg "brainhabit/data"
+	"brainhabit/data/models"
 	"brainhabit/utils"
 	"net/http"
 	"time"
@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func LoginUser(c *gin.Context) {
+func (controller *Controller) LoginUser(c *gin.Context) {
 	type Credentials struct {
 		Email    string `json:"email"`
 		Password string `json:"password"`
@@ -46,7 +46,7 @@ func LoginUser(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"token": token})
 }
 
-func LogoutUser(c *gin.Context) {
+func (controller *Controller) LogoutUser(c *gin.Context) {
 	//TODO remove placeholder after there is proper JWT implemented
 	c.JSON(http.StatusOK, "Successfully logged out")
 }

@@ -1,15 +1,15 @@
 package controllers
 
 import (
-	pg "brainhabit/db"
-	"brainhabit/models"
+	pg "brainhabit/data"
+	"brainhabit/data/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
 
-func GetUser(c *gin.Context) {
+func (controller *Controller) GetUser(c *gin.Context) {
 	ID, err := uuid.Parse(c.Param("id"))
 
 	if err != nil {
@@ -27,14 +27,14 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-func GetHabits(c *gin.Context) {
+func (controller *Controller) GetHabits(c *gin.Context) {
 	var habits []models.Habit
 	pg.DB.Find(&habits)
 
 	c.JSON(http.StatusOK, habits)
 }
 
-func GetHabitRecords(c *gin.Context) {
+func (controller *Controller) GetHabitRecords(c *gin.Context) {
 	var habits_records []models.HabitRecord
 	pg.DB.Find(&habits_records)
 

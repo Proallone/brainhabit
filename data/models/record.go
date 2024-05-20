@@ -1,7 +1,7 @@
 package models
 
 import (
-	"brainhabit/models/common"
+	"brainhabit/data/models/common"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"

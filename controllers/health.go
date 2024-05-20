@@ -3,18 +3,18 @@ package controllers
 import (
 	"net/http"
 
-	pg "brainhabit/db"
+	pg "brainhabit/data"
 
 	"github.com/gin-gonic/gin"
 )
 
-func CheckServer(c *gin.Context) {
+func (controller *Controller) CheckServer(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"Server": "Healthy",
 	})
 }
 
-func CheckPostgres(c *gin.Context) {
+func (controller *Controller) CheckPostgres(c *gin.Context) {
 
 	dbName := pg.DB.Migrator().CurrentDatabase()
 

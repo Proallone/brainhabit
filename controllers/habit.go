@@ -1,15 +1,15 @@
 package controllers
 
 import (
-	pg "brainhabit/db"
-	"brainhabit/models"
+	pg "brainhabit/data"
+	"brainhabit/data/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
 
-func CreateHabit(c *gin.Context) {
+func (controller *Controller) CreateHabit(c *gin.Context) {
 	var habit models.Habit
 	if err := c.ShouldBindJSON(&habit); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -24,7 +24,7 @@ func CreateHabit(c *gin.Context) {
 	c.JSON(http.StatusCreated, habit)
 }
 
-func PatchHabit(c *gin.Context) {
+func (controller *Controller) PatchHabit(c *gin.Context) {
 	ID, err := uuid.Parse(c.Param("id"))
 
 	if err != nil {
@@ -49,7 +49,7 @@ func PatchHabit(c *gin.Context) {
 	c.JSON(http.StatusOK, habit)
 }
 
-func DeleteHabit(c *gin.Context) {
+func (controller *Controller) DeleteHabit(c *gin.Context) {
 	ID, err := uuid.Parse(c.Param("id"))
 
 	if err != nil {
@@ -69,7 +69,7 @@ func DeleteHabit(c *gin.Context) {
 	c.JSON(http.StatusNoContent, gin.H{"response": "Habit deleted"})
 }
 
-func GetHabit(c *gin.Context) {
+func (controller *Controller) GetHabit(c *gin.Context) {
 	ID, err := uuid.Parse(c.Param("id"))
 
 	if err != nil {
