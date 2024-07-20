@@ -1,10 +1,11 @@
 services:
   postgres:
-    container_name: postgres
+    container_name: bh_pg
     image: postgres:latest
     ports:
       - 5432:5432
     restart: unless-stopped
+    env_file: .env
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
@@ -23,12 +24,14 @@ services:
       - postgres_volume:/var/lib/postgresql/data
     networks:
       - fullstack
+
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: pgadmin
+    container_name: bh_pgadmin
     restart: unless-stopped
     ports:
       - "8888:80"
+    env_file: .env
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@example.com}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-password}
@@ -37,18 +40,19 @@ services:
     networks:
       - fullstack
   bh:
-    container_name: bh
+    image: bh:0.1
+    container_name: bh_backend
     build:
       context: ./
       dockerfile: Dockerfile
     ports:
       -  ${PORT}:${PORT}
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
-      PORT: ${PORT:-8080}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      - PORT=${PORT:-8080}
+      - CONNECTION_STRING=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}?sslmode=disable
     volumes:
       - api_volume:/usr/src/app/
     depends_on:

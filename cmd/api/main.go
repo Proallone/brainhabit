@@ -17,10 +17,11 @@ func main() {
 
 	r := setupRouter()
 	routes.Routes(r)
-	dns := getPgDns()
+	dns := getDatabaseConnString()
 	fmt.Print(dns)
 	pg.Setup(dns)
 	port := getPort()
+
 	if err := r.Run(port); err != nil {
 		panic(err)
 	}
@@ -36,14 +37,6 @@ func getPort() string {
 	return ":" + port
 }
 
-func getPgDns() string {
-	user := os.Getenv("POSTGRES_USER")
-	password := os.Getenv("POSTGRES_PASSWORD")
-	db := os.Getenv("POSTGRES_DB")
-	return fmt.Sprintf("user=%s password=%s dbname=%s host=postgres port=5432 sslmode=disable", user, password, db)
-
-}
-
 func setupRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(cors.New(cors.Config{
@@ -55,4 +48,8 @@ func setupRouter() *gin.Engine {
 		MaxAge:           12 * time.Hour,
 	}))
 	return router
+}
+
+func getDatabaseConnString() string {
+	return os.Getenv("CONNECTION_STRING")
 }
